@@ -99,4 +99,11 @@
             <url>https://maven.aliyun.com/repository/public</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyunspringplugin</id>
+            <name>AliyunSpringPlugin</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
