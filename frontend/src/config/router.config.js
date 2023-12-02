@@ -82,19 +82,19 @@ export const asyncRouterMap = [
         redirect: '/shop/list',
         component: PageView,
         hideChildrenInMenu: false,
-        meta: { title: '积分商城', keepAlive: true, icon: 'shop', permission: ['dashboard'] },
+        meta: { title: '积分商城', keepAlive: true, icon: 'gift', permission: ['dashboard'] },
         children: [
           {
             path: '/shop/list',
             name: 'ShopList',
             component: () => import('../views/list/ShopList'),
-            meta: { title: '积分商城', keepAlive: true, permission: ['dashboard'] }
+            meta: { title: '积分商城', keepAlive: true, icon: 'shop', permission: ['dashboard'] }
           },
           {
             path: '/shop/order/list',
             name: 'ShopOrderList',
             component: () => import('../views/list/ShopOrderList'),
-            meta: { title: '商城历史订单', keepAlive: true, permission: ['dashboard'] }
+            meta: { title: '商城历史订单', keepAlive: true, icon: 'profile', permission: ['dashboard'] }
           }
         ]
       },
