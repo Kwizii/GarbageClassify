@@ -293,8 +293,8 @@ export default {
     },
     handleCancel () {
       // clear form & currentStep
+      $('#summernote-question-desc').summernote('reset')
       this.form.resetFields()
-      this.initSummernote('summernote-question-desc')
       this.visible = false
       this.currentStep = 0
     },

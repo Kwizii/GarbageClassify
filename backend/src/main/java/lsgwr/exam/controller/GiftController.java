@@ -39,7 +39,7 @@ public class GiftController {
     @ApiOperation("更新物品")
     ResultVO<Gift> updateGift(@RequestBody GiftUpdateDTO param) {
         try {
-            Gift gift = giftService.createGift(param);
+            Gift gift = giftService.updateGift(param);
             return new ResultVO<>(0, null, gift);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class GiftController {
     @ApiOperation("创建物品")
     ResultVO<Gift> createGift(@RequestBody GiftUpdateDTO param) {
         try {
-            Gift gift = giftService.updateGift(param);
+            Gift gift = giftService.createGift(param);
             return new ResultVO<>(0, null, gift);
         } catch (Exception e) {
             e.printStackTrace();

@@ -45,7 +45,9 @@
               v-decorator="[
                 'giftAvatar',
                 {
+                  initialValue: formItem.giftAvatar,
                   getValueFromEvent: normFile,
+                  rules: [{ required: true, message: '请上传图片' }]
                 },
               ]"
               :show-upload-list="false"
@@ -54,7 +56,7 @@
               :multiple="false"
               @change="handleChange"
             >
-              <img style="width: 100%;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
+              <img style="width: 100%;" v-if="formItem.giftAvatar" :src="formItem.giftAvatar" alt="avatar"/>
               <div style="margin: 55px;" v-else>
                 <a-icon :type="loading ? 'loading' : 'plus'"/>
                 <div class="ant-upload-text">
@@ -69,23 +71,23 @@
         </a-form-item>
         <a-form-item v-show="false" label="物品ID">
           <a-input
-            v-decorator="['giftId']"/>
+            v-decorator="['giftId', { initialValue: formItem.giftId}]"/>
         </a-form-item>
         <a-form-item label="物品名称">
           <a-input
             placeholder="请输入物品名称"
-            v-decorator="['giftName', {rules: [{ required: true, message: '请输入物品名称' }]}]"/>
+            v-decorator="['giftName', {initialValue: formItem.giftName,rules: [{ required: true, message: '请输入物品名称' }]}]"/>
         </a-form-item>
         <a-form-item label="物品描述">
           <a-input
             placeholder="请输入物品描述"
-            v-decorator="['giftDescription', {rules: [{ required: true, message: '请输入物品描述' }]}]"/>
+            v-decorator="['giftDescription', {initialValue: formItem.giftDescription,rules: [{ required: true, message: '请输入物品描述' }]}]"/>
         </a-form-item>
         <a-form-item label="物品价格">
           <a-input-number
             :min="0"
             placeholder="请输入物品价格"
-            v-decorator="['giftPrice', {initialValue:0 }]"/>
+            v-decorator="['giftPrice', {initialValue:formItem.giftPrice }]"/>
         </a-form-item>
       </a-form>
       <template slot="footer">
@@ -122,10 +124,11 @@ export default {
       cuModalVisible: false,
       isCreate: true,
       formItem: {
-        giftName: '',
+        giftId: null,
+        giftName: null,
         giftPrice: 0,
-        giftDescription: '',
-        giftAvatar: ''
+        giftDescription: null,
+        giftAvatar: null
       },
       form: this.$form.createForm(this),
       loading: false,
@@ -136,11 +139,20 @@ export default {
     handleCreate () {
       this.isCreate = true
       this.cuModalVisible = true
+      this.form.resetFields()
+      this.formItem = {
+        giftId: null,
+        giftName: null,
+        giftPrice: 0,
+        giftDescription: null,
+        giftAvatar: null
+      }
     },
     handleUpdate (gift) {
       this.isCreate = false
       this.cuModalVisible = true
-      this.formItem = gift
+      this.formItem = { ...gift }
+      this.form.setFieldsValue({ 'giftAvatar': gift.giftAvatar })
     },
     handleDel (giftId) {
       delGift(giftId).then(res => {
@@ -155,10 +167,49 @@ export default {
       })
     },
     normFile (e) {
-      return e.file
+      return e.file.originFileObj
     },
     handleConfirm () {
       console.log(this.form.getFieldsValue())
+      this.form.validateFields(async (errors, values) => {
+        if (!errors) {
+          if (typeof values.giftAvatar !== 'string') {
+            const resp = await uploadImage(values.giftAvatar)
+            values.giftAvatar = postprocess(resp)
+          }
+          if (this.isCreate) {
+            createGift(values).then(res => {
+              if (res.code === 0) {
+                this.$notification.success({
+                  message: '创建成功'
+                })
+                this.cuModalVisible = false
+                this.loadGiftList()
+              } else {
+                this.$notification.error({
+                  message: '创建失败',
+                  description: res.msg
+                })
+              }
+            })
+          } else {
+            updateGift(values).then(res => {
+              if (res.code === 0) {
+                this.$notification.success({
+                  message: '更新成功'
+                })
+                this.cuModalVisible = false
+                this.loadGiftList()
+              } else {
+                this.$notification.error({
+                  message: '更新失败',
+                  description: res.msg
+                })
+              }
+            })
+          }
+        }
+      })
     },
     loadGiftList () {
       getGiftList().then(res => {
@@ -192,9 +243,8 @@ export default {
       return isJpgOrPng && isLt10M
     },
     customRequest ({ file }) {
-      this.file = file
       getBase64(file, imageUrl => {
-        this.imageUrl = imageUrl
+        this.formItem.giftAvatar = imageUrl
         this.loading = false
       })
     }
@@ -221,5 +271,10 @@ export default {
   height: 64px;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+</style>
+<style>
+.ant-upload.ant-upload-drag .ant-upload{
+  padding: 0 !important;
 }
 </style>
