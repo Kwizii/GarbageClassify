@@ -35,61 +35,63 @@
       </a-list-item>
     </a-list>
     <a-modal :visible="cuModalVisible" :title="isCreate?'新增商品':'编辑商品'" @cancel="handleCancel">
-      <a-form v-bind="formItemLayout" :form="form">
-        <a-form-item label="物品封面">
-          <div class="dropbox">
-            <a-upload-dragger
-              name="avatar"
-              accept=".jpg, .jpeg, .png"
-              class="avatar-uploader"
-              v-decorator="[
-                'giftAvatar',
-                {
-                  initialValue: formItem.giftAvatar,
-                  getValueFromEvent: normFile,
-                  rules: [{ required: true, message: '请上传图片' }]
-                },
-              ]"
-              :show-upload-list="false"
-              :before-upload="beforeUpload"
-              :customRequest="customRequest"
-              :multiple="false"
-              @change="handleChange"
-            >
-              <img style="width: 100%;" v-if="formItem.giftAvatar" :src="formItem.giftAvatar" alt="avatar"/>
-              <div style="margin: 55px;" v-else>
-                <a-icon :type="loading ? 'loading' : 'plus'"/>
-                <div class="ant-upload-text">
-                  拖拽图片至此处或点击上传
+      <a-spin :spinning="confirmLoading">
+        <a-form v-bind="formItemLayout" :form="form">
+          <a-form-item label="物品封面">
+            <div class="dropbox">
+              <a-upload-dragger
+                name="avatar"
+                accept=".jpg, .jpeg, .png"
+                class="avatar-uploader"
+                v-decorator="[
+                  'giftAvatar',
+                  {
+                    initialValue: formItem.giftAvatar,
+                    getValueFromEvent: normFile,
+                    rules: [{ required: true, message: '请上传图片' }]
+                  },
+                ]"
+                :show-upload-list="false"
+                :before-upload="beforeUpload"
+                :customRequest="customRequest"
+                :multiple="false"
+                @change="handleChange"
+              >
+                <img style="width: 100%;" v-if="formItem.giftAvatar" :src="formItem.giftAvatar" alt="avatar"/>
+                <div style="margin: 55px;" v-else>
+                  <a-icon :type="loading ? 'loading' : 'plus'"/>
+                  <div class="ant-upload-text">
+                    拖拽图片至此处或点击上传
+                  </div>
+                  <p class="ant-upload-hint">
+                    支持JPEG、PNG格式图片
+                  </p>
                 </div>
-                <p class="ant-upload-hint">
-                  支持JPEG、PNG格式图片
-                </p>
-              </div>
-            </a-upload-dragger>
-          </div>
-        </a-form-item>
-        <a-form-item v-show="false" label="物品ID">
-          <a-input
-            v-decorator="['giftId', { initialValue: formItem.giftId}]"/>
-        </a-form-item>
-        <a-form-item label="物品名称">
-          <a-input
-            placeholder="请输入物品名称"
-            v-decorator="['giftName', {initialValue: formItem.giftName,rules: [{ required: true, message: '请输入物品名称' }]}]"/>
-        </a-form-item>
-        <a-form-item label="物品描述">
-          <a-input
-            placeholder="请输入物品描述"
-            v-decorator="['giftDescription', {initialValue: formItem.giftDescription,rules: [{ required: true, message: '请输入物品描述' }]}]"/>
-        </a-form-item>
-        <a-form-item label="物品价格">
-          <a-input-number
-            :min="0"
-            placeholder="请输入物品价格"
-            v-decorator="['giftPrice', {initialValue:formItem.giftPrice }]"/>
-        </a-form-item>
-      </a-form>
+              </a-upload-dragger>
+            </div>
+          </a-form-item>
+          <a-form-item v-show="false" label="物品ID">
+            <a-input
+              v-decorator="['giftId', { initialValue: formItem.giftId}]"/>
+          </a-form-item>
+          <a-form-item label="物品名称">
+            <a-input
+              placeholder="请输入物品名称"
+              v-decorator="['giftName', {initialValue: formItem.giftName,rules: [{ required: true, message: '请输入物品名称' }]}]"/>
+          </a-form-item>
+          <a-form-item label="物品描述">
+            <a-input
+              placeholder="请输入物品描述"
+              v-decorator="['giftDescription', {initialValue: formItem.giftDescription,rules: [{ required: true, message: '请输入物品描述' }]}]"/>
+          </a-form-item>
+          <a-form-item label="物品价格">
+            <a-input-number
+              :min="0"
+              placeholder="请输入物品价格"
+              v-decorator="['giftPrice', {initialValue:formItem.giftPrice }]"/>
+          </a-form-item>
+        </a-form>
+      </a-spin>
       <template slot="footer">
         <a-button key="cancel" @click="handleCancel">取消</a-button>
         <a-button key="forward" type="primary" @click="handleConfirm()">确认</a-button>
@@ -132,7 +134,8 @@ export default {
       },
       form: this.$form.createForm(this),
       loading: false,
-      imageUrl: ''
+      imageUrl: '',
+      confirmLoading: false
     }
   },
   methods: {
@@ -171,8 +174,10 @@ export default {
     },
     handleConfirm () {
       console.log(this.form.getFieldsValue())
+
       this.form.validateFields(async (errors, values) => {
         if (!errors) {
+          this.confirmLoading = true
           if (typeof values.giftAvatar !== 'string') {
             const resp = await uploadImage(values.giftAvatar)
             values.giftAvatar = postprocess(resp)
@@ -191,6 +196,8 @@ export default {
                   description: res.msg
                 })
               }
+            }).finally(() => {
+              this.confirmLoading = true
             })
           } else {
             updateGift(values).then(res => {
@@ -206,6 +213,8 @@ export default {
                   description: res.msg
                 })
               }
+            }).finally(() => {
+              this.confirmLoading = true
             })
           }
         }

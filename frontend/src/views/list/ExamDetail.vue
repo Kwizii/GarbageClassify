@@ -1,53 +1,48 @@
 <template>
-  <a-layout>
+  <a-layout style="min-height: 100vh">
     <a-layout-header class="header" style="color: #fff">
       <!--   v-if="examDetail.exam" 是为了防止 异步请求时页面渲染的时候还没有拿到这个值而报错， 下面多处这个判断都是这个道理 -->
-      <span style="font-size:25px;margin-left: 0px;" v-if="examDetail.exam">
+      <span style="font-size:25px;margin-left: 0;" v-if="examDetail.exam">
         <a-avatar slot="avatar" size="large" shape="circle" :src="examDetail.exam.examAvatar | imgSrcFilter"/>
         {{ examDetail.exam.examName }}
         <span style="font-size:15px;">{{ examDetail.exam.examDescription }} </span>
       </span>
       <span style="float: right;">
-        <span style="margin-right: 60px; font-size: 20px" v-if="examDetail.exam">限时：{{ examDetail.exam.examTimeLimit }}分钟</span>
-        <a-button type="danger" ghost style="margin-right: 60px;" @click="finishExam()">提交</a-button>
-        <a-avatar class="avatar" size="small" :src="avatar()"/>
-        <span style="margin-left: 12px">{{ nickname() }}</span>
+        <span style="margin-right: 20px; font-size: 20px" v-if="examDetail.exam">限时：{{ examDetail.exam.examTimeLimit }}分钟</span>
+        <a-button type="danger" ghost @click="finishExam()">提交</a-button>
       </span>
     </a-layout-header>
     <a-layout>
-      <a-layout-sider width="190" :style="{background: '#444',overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
+      <a-layout-sider collapsible="true" theme="light">
         <a-menu
           mode="inline"
+          theme="light"
           :defaultSelectedKeys="['1']"
           :defaultOpenKeys="['question_radio', 'question_check', 'question_judge']"
-          :style="{ height: '100%', borderRight: 0 }"
         >
           <a-sub-menu key="question_radio" v-if="examDetail.radioIds.length">
-            <span slot="title" v-if="examDetail.exam"><a-icon type="check-circle" theme="twoTone"/>单选题(每题{{ examDetail.exam.examScoreRadio }}分)</span>
+            <span slot="title" v-if="examDetail.exam"><a-icon type="check-circle" theme="twoTone"/><span>单选题(每题{{ examDetail.exam.examScoreRadio }}分)</span></span>
             <a-menu-item v-for="(item, index) in examDetail.radioIds" :key="item" @click="getQuestionDetail(item)">
-              <a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>
-              题目{{ index + 1 }}
+              <span><a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>题目{{ index + 1 }}</span>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="question_check" v-if="examDetail.checkIds.length">
-            <span slot="title" v-if="examDetail.exam"><a-icon type="check-square" theme="twoTone"/>多选题(每题{{ examDetail.exam.examScoreCheck }}分)</span>
+            <span slot="title" v-if="examDetail.exam"><a-icon type="check-square" theme="twoTone"/><span>多选题(每题{{ examDetail.exam.examScoreCheck }}分)</span></span>
             <a-menu-item v-for="(item, index) in examDetail.checkIds" :key="item" @click="getQuestionDetail(item)">
-              <a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>
-              题目{{ index + 1 }}
+              <span><a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>题目{{ index + 1 }}</span>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="question_judge" v-if="examDetail.judgeIds.length">
-            <span slot="title" v-if="examDetail.exam"><a-icon type="like" theme="twoTone"/>判断题(每题{{ examDetail.exam.examScoreJudge }}分)</span>
+            <span slot="title" v-if="examDetail.exam"><a-icon type="like" theme="twoTone"/><span>判断题(每题{{ examDetail.exam.examScoreJudge }}分)</span></span>
             <a-menu-item v-for="(item, index) in examDetail.judgeIds" :key="item" @click="getQuestionDetail(item)">
-              <a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>
-              题目{{ index + 1 }}
+              <span><a-icon type="eye" theme="twoTone" twoToneColor="#52c41a" v-if="answersMap.get(item)"/>题目{{ index + 1 }}</span>
             </a-menu-item>
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>
-      <a-layout :style="{ marginLeft: '200px' }">
+      <a-layout :style="{ marginLeft: '10px' }">
         <a-layout-content :style="{ margin: '24px 16px 0',height: '84vh', overflow: 'initial' }">
-          <div :style="{ padding: '24px', background: '#fff',height: '84vh'}">
+          <div :style="{ padding: '12px', background: '#fff',height: '84vh', overflow: 'hidden'}">
             <span v-show="currentQuestion === ''" style="font-size: 30px;font-family: Consolas">欢迎参加知识问答，请点击左侧题目编号开始答题</span>
             <strong>{{ currentQuestion.type }} </strong> <p v-html="currentQuestion.name"></p>
             <!-- 单选题和判断题 --> <!-- key不重复只需要在一个for循环中保证即可 -->
