@@ -52,7 +52,7 @@
               @change="handleRadioChange"
             >
               <a-select-option v-for="radio in radios" :value="radio.name" :key="radio.id">
-                {{ radio.name }}
+                {{ removeHtmlTags(radio.name) }}
               </a-select-option>
             </a-select>
           </a-form-item>
@@ -70,7 +70,7 @@
               @change="handleCheckChange"
             >
               <a-select-option v-for="check in checks" :value="check.name" :key="check.id">
-                {{ check.name }}
+                {{ removeHtmlTags(check.name) }}
               </a-select-option>
             </a-select>
           </a-form-item>
@@ -87,7 +87,7 @@
               @popupScroll="popupScroll"
               @change="handleJudgeChange">
               <a-select-option v-for="judge in judges" :value="judge.name" :key="judge.id">
-                {{ judge.name }}
+                {{ removeHtmlTags(judge.name) }}
               </a-select-option>
             </a-select>
           </a-form-item>
@@ -149,6 +149,11 @@ export default {
     }
   },
   methods: {
+    removeHtmlTags (data) {
+      const temp = document.createElement('div')
+      temp.innerHTML = data
+      return temp.textContent || temp.innerText || ''
+    },
     edit (exam) {
       Object.assign(this.exam, exam) // 深度拷贝
       this.visible = true

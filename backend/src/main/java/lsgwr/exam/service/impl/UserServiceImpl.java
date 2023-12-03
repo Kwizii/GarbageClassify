@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
             // 默认设置为学生身份，需要老师和学生身份地话需要管理员修改
             user.setUserRoleId(RoleEnum.STUDENT.getId());
             // 设置头像图片地址, 先默认一个地址，后面用户可以自己再改
-            String defaultAvatar = "http://d.lanrentuku.com/down/png/1904/business_avatar/8_avatar_2754583.png";
+            String defaultAvatar = "https://s2.loli.net/2023/12/03/AG82PVFyIr5oeTw.png";
             user.setUserAvatar(defaultAvatar);
             user.setScore(0);
             // 设置描述信息，随便设置段默认的

@@ -10,8 +10,8 @@
         <!-- step1 -->
         <div v-show="currentStep === 0">
           <a-form-item label="题干" :labelCol="labelCol" :wrapperCol="wrapperCol">
-            <!--            <div id="summernote-question-name"></div>-->
-            <a-input v-model="name" v-decorator="['name', {rules: [{required: true}]}]"/>
+            <div id="summernote-question-name"></div>
+<!--            <a-input v-model="name" v-decorator="['name', {rules: [{required: true}]}]"/>-->
           </a-form-item>
           <a-form-item label="解析" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <div id="summernote-question-desc"></div>
@@ -160,7 +160,7 @@ export default {
     }
   },
   updated () {
-    // this.initSummernote('summernote-question-name')
+    this.initSummernote('summernote-question-name')
     this.initSummernote('summernote-question-desc')
   },
   methods: {
@@ -256,8 +256,8 @@ export default {
         console.log('提交数据到后端')
         console.log('errors:', errors, 'val:', values)
         values.options = this.options
-        // values.name = this.getSummernoteContent('summernote-question-name')
-        values.name = this.name
+        values.name = this.getSummernoteContent('summernote-question-name')
+        // values.name = this.name
         values.desc = this.getSummernoteContent('summernote-question-desc')
         this.confirmLoading = false
         if (!errors) {
@@ -293,6 +293,7 @@ export default {
     },
     handleCancel () {
       // clear form & currentStep
+      $('#summernote-question-name').summernote('reset')
       $('#summernote-question-desc').summernote('reset')
       this.form.resetFields()
       this.visible = false

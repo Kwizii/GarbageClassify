@@ -3,8 +3,8 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <h3><b>题干：</b></h3>
-        <a-input v-model="name"/>
-        <!--        <div id="summernote-question-name-edit" />-->
+<!--        <a-input v-model="name"/>-->
+        <div id="summernote-question-name-edit" />
         <ul v-show="question.type==='多选题'">
           <li v-for="option in question.options" :key="option.id">
             <a-input v-model="option.content" />
@@ -88,9 +88,9 @@ export default {
   },
 
   updated () {
-    // this.initSummernote('summernote-question-name-edit')
+    this.initSummernote('summernote-question-name-edit')
     this.initSummernote('summernote-question-desc-edit')
-    // this.setSummernoteContent('summernote-question-name-edit', this.name)
+    this.setSummernoteContent('summernote-question-name-edit', this.name)
     this.setSummernoteContent('summernote-question-desc-edit', this.desc)
   },
   methods: {
@@ -199,8 +199,8 @@ export default {
 
     handleUpdate () {
       const that = this
-      // that.question.name = that.getSummernoteContent('summernote-question-name-edit')
-      that.question.name = that.name
+      that.question.name = that.getSummernoteContent('summernote-question-name-edit')
+      // that.question.name = that.name
       that.question.description = that.getSummernoteContent('summernote-question-desc-edit')
       console.log(that.question)
       // 把data中的question属性提交到后端，待写完后端接口
