@@ -152,7 +152,7 @@ export default {
       this.isCreate = false
       this.cuModalVisible = true
       this.formItem = { ...gift }
-      this.form.setFieldsValue({ 'giftAvatar': gift.giftAvatar })
+      this.form.setFieldsValue(this.formItem)
     },
     handleDel (giftId) {
       delGift(giftId).then(res => {
