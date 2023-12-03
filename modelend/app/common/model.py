@@ -47,17 +47,4 @@ names = {
     "39": "有害垃圾/过期药物"
 }
 
-# classify_model = torch.jit.load('app/static/scripted_float.pt').cuda()
-
-if __name__ == '__main__':
-    nd = {}
-    for k, v in names.items():
-        category, name = v.split('/')
-        if category not in nd:
-            nd[category] = []
-        nd[category].append(name)
-    for k, v in nd.items():
-        s = ''
-        for x in v:
-            s += x + '、'
-        print(f'{k}：{s}')
+classify_model = torch.jit.load('app/static/scripted_float.pt').cuda()
