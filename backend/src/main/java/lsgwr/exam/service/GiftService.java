@@ -7,6 +7,7 @@
 package lsgwr.exam.service;
 
 import lsgwr.exam.dto.GiftOrderCreateDTO;
+import lsgwr.exam.dto.GiftUpdateDTO;
 import lsgwr.exam.entity.Gift;
 import lsgwr.exam.entity.GiftOrder;
 import org.springframework.data.domain.Page;
@@ -22,4 +23,10 @@ public interface GiftService {
     void createOrder(String userId,GiftOrderCreateDTO param);
 
     Page<GiftOrder> getOrders(String userId, Pageable pageable);
+
+    Gift createGift(GiftUpdateDTO param);
+
+    Gift updateGift(GiftUpdateDTO param);
+
+    void delById(String giftId);
 }

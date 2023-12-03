@@ -91,6 +91,12 @@ export const asyncRouterMap = [
             meta: { title: '积分商城', keepAlive: true, icon: 'shop', permission: ['dashboard'] }
           },
           {
+            path: '/shop/manage',
+            name: 'ShopManageList',
+            component: () => import('../views/list/ShopManageList'),
+            meta: { title: '商品管理', keepAlive: true, icon: 'form', permission: ['question-admin'] }
+          },
+          {
             path: '/shop/order/list',
             name: 'ShopOrderList',
             component: () => import('../views/list/ShopOrderList'),

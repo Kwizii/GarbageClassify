@@ -2,7 +2,9 @@ package lsgwr.exam.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import java.util.Date;
 /**
  * @author ChanvoBook
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Data
 @DynamicUpdate

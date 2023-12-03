@@ -294,6 +294,7 @@ export default {
     handleCancel () {
       // clear form & currentStep
       this.form.resetFields()
+      this.initSummernote('summernote-question-desc')
       this.visible = false
       this.currentStep = 0
     },

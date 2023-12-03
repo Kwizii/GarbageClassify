@@ -59,6 +59,9 @@
         <div class="ant-upload-text">
           拖拽图片至此处或点击上传
         </div>
+        <p class="ant-upload-hint">
+          支持JPEG、PNG格式图片
+        </p>
       </div>
     </a-upload-dragger>
   </a-card>
@@ -143,10 +146,9 @@ export default {
         this.$notification.success({
           message: '检测成功'
         })
-      }).catch(err => {
+      }).catch(() => {
         this.$notification.error({
-          message: '检测错误',
-          description: err
+          message: '检测错误'
         })
       })
     }

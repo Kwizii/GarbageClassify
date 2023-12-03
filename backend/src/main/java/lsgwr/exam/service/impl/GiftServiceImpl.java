@@ -2,6 +2,7 @@ package lsgwr.exam.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import lsgwr.exam.dto.GiftOrderCreateDTO;
+import lsgwr.exam.dto.GiftUpdateDTO;
 import lsgwr.exam.entity.Gift;
 import lsgwr.exam.entity.GiftOrder;
 import lsgwr.exam.enums.ResultEnum;
@@ -73,6 +74,34 @@ public class GiftServiceImpl implements GiftService {
     @Override
     public Page<GiftOrder> getOrders(String userId, Pageable pageable) {
         return giftOrderRepository.findAll(userIdEqualsOne(userId), pageable);
+    }
+
+    @Override
+    public Gift createGift(GiftUpdateDTO param) {
+        Gift gift = new Gift(IdUtil.simpleUUID(),
+                param.getGiftName(),
+                param.getGiftAvatar(),
+                param.getGiftDescription(),
+                param.getGiftPrice(),
+                new Date(),
+                new Date());
+        return giftRepository.save(gift);
+    }
+
+    @Override
+    public Gift updateGift(GiftUpdateDTO param) {
+        Gift gift = giftRepository.getOne(param.getGiftId());
+        gift.setUpdateTime(new Date());
+        gift.setGiftName(param.getGiftName());
+        gift.setGiftDescription(param.getGiftDescription());
+        gift.setGiftAvatar(param.getGiftAvatar());
+        gift.setGiftPrice(param.getGiftPrice());
+        return giftRepository.save(gift);
+    }
+
+    @Override
+    public void delById(String giftId) {
+        giftRepository.deleteById(giftId);
     }
 
     public static Specification<GiftOrder> userIdEqualsOne(String userId) {

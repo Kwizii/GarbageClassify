@@ -92,7 +92,7 @@ module.exports = {
 
   devServer: {
     // development server port 8000
-    port: 8000,
+    port: 80,
     proxy: {
       '/api/v2/upload': { target: 'https://smms.app' },
       '/api': { target: 'http://localhost:9527' }

@@ -8,6 +8,32 @@ export function getGiftList () {
   })
 }
 
+export function createGift (param) {
+  return axios({
+    url: api.CreateGift,
+    method: 'post',
+    data: param
+  })
+}
+
+export function updateGift (param) {
+  return axios({
+    url: api.UpdateGift,
+    method: 'post',
+    data: param
+  })
+}
+
+export function delGift (giftId) {
+  return axios({
+    url: api.DelGift,
+    method: 'post',
+    params: {
+      'giftId': giftId
+    }
+  })
+}
+
 export function createGiftOrder (param) {
   return axios({
     url: api.CreateGiftOrder,

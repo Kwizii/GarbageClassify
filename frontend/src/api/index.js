@@ -38,6 +38,9 @@ const api = {
   GiftList: '/gift/list',
   CreateGiftOrder: '/gift/order/new',
   UploadFile: '/v2/upload',
-  GetGiftOrderList: '/gift/order/list'
+  GetGiftOrderList: '/gift/order/list',
+  CreateGift: '/gift/new',
+  UpdateGift: '/gift/update',
+  DelGift: '/gift/del'
 }
 export default api
