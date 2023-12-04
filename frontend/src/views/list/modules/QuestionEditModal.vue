@@ -3,7 +3,7 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <h3><b>题干：</b></h3>
-<!--        <a-input v-model="name"/>-->
+        <!--        <a-input v-model="name"/>-->
         <div id="summernote-question-name-edit" />
         <ul v-show="question.type==='多选题'">
           <li v-for="option in question.options" :key="option.id">

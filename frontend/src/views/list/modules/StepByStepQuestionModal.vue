@@ -11,7 +11,7 @@
         <div v-show="currentStep === 0">
           <a-form-item label="题干" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <div id="summernote-question-name"></div>
-<!--            <a-input v-model="name" v-decorator="['name', {rules: [{required: true}]}]"/>-->
+            <!--            <a-input v-model="name" v-decorator="['name', {rules: [{required: true}]}]"/>-->
           </a-form-item>
           <a-form-item label="解析" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <div id="summernote-question-desc"></div>
