@@ -197,7 +197,7 @@ export default {
                 })
               }
             }).finally(() => {
-              this.confirmLoading = true
+              this.confirmLoading = false
             })
           } else {
             updateGift(values).then(res => {
@@ -214,7 +214,7 @@ export default {
                 })
               }
             }).finally(() => {
-              this.confirmLoading = true
+              this.confirmLoading = false
             })
           }
         }

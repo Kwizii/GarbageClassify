@@ -51,12 +51,15 @@ def preprocess(inputs, size=PREPROCESS_ARGS['size'], mean=PREPROCESS_ARGS['mean'
     return tensors
 
 
-def postprocess(inputs, names=None, topk=5):
+def postprocess(inputs, names=None, topk=5, T=1):
     probs, classIdxes = torch.topk(inputs, k=topk, dim=-1)
+    probs = torch.nn.functional.softmax(probs / T, dim=-1)
     preds = []
     for prob, classIdx in zip(probs, classIdxes):
         preds.append(
-            [{'cls': names[str(c.item())] if names else c.item(), 'conf': p.item()} for p, c in zip(prob, classIdx)])
+            [{'cls': names[str(c.item())] if names else c.item(), 'conf': str(round(p.item() * 100, 1)) + '%'} for p, c
+             in
+             zip(prob, classIdx)])
     return preds
 
 

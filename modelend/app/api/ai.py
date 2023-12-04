@@ -20,5 +20,5 @@ def classify():
     image = Image.open(io.BytesIO(file.stream.read())).convert('RGB')
     inputs = preprocess(image)
     outputs = classify_model(inputs)
-    preds = postprocess(outputs, names=names, topk=5)
+    preds = postprocess(outputs, names=names, topk=2, T=0.25)
     return success_response(data=preds[0])
