@@ -15,6 +15,15 @@
            支持的类别
          </a-popover>
        </a-tag>
+      <a-tag color="red">
+        <a-popover>
+          <template slot="content">
+            <p>请确保照片质量足够好，以提高识别准确性。</p>
+            <p>尽量避免阴影和模糊，以确保系统能够正确分辨垃圾类型。</p>
+          </template>
+          注意事项
+        </a-popover>
+       </a-tag>
      </template>
       <template slot="extra">
         <a-row v-if="preds.length" type="flex">

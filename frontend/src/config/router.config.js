@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '../layouts'
+import {UserLayout, BasicLayout, RouteView, BlankLayout, PageView} from '../layouts'
 import { examList, examAdmin, questionAdmin } from '../core/icons'
 
 export const asyncRouterMap = [
@@ -8,36 +8,36 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: '垃圾分类系统' },
-    redirect: '/dashboard/classify',
+    meta: {title: '智能垃圾分类系统'},
+    redirect: '/dashboard/info',
     children: [
       // dashboard
-      // {
-      //   path: '/dashboard',
-      //   name: 'dashboard',
-      //   redirect: '/dashboard/home',
-      //   component: RouteView,
-      //   hideChildrenInMenu: true,
-      //   meta: { title: '首页', keepAlive: true, icon: 'home', permission: ['dashboard'] },
-      //   children: [
-      //     {
-      //       path: '/dashboard/home',
-      //       name: 'Workplace',
-      //       component: () => import('../views/Home'),
-      //       meta: { title: '在线识别', keepAlive: true, permission: ['dashboard'] }
-      //     }
-      //   ]
-      // },
       {
         path: '/dashboard',
         name: 'dashboard',
-        redirect: '/dashboard/classify',
+        redirect: '/dashboard/',
+        component: RouteView,
+        hideChildrenInMenu: true,
+        meta: {title: '首页', keepAlive: true, icon: 'home', permission: ['dashboard']},
+        children: [
+          {
+            path: '/dashboard/',
+            name: 'carousel',
+            component: () => import('../views/Carousel'),
+            meta: {title: '首页', keepAlive: true, permission: ['dashboard']}
+          }
+        ]
+      },
+      {
+        path: '/ai',
+        name: 'ai',
+        redirect: '/ai/classify',
         component: PageView,
         hideChildrenInMenu: true,
         meta: { title: '在线识别', keepAlive: true, icon: 'search', permission: ['dashboard'] },
         children: [
           {
-            path: '/dashboard/classify',
+            path: '/ai/classify',
             name: 'classify',
             component: () => import('../views/Classify'),
             meta: { title: '人工智能在线识别', keepAlive: true, permission: ['dashboard'] }
