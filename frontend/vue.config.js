@@ -95,7 +95,7 @@ module.exports = {
     port: 80,
     proxy: {
       '/api/v2/upload': { target: 'https://smms.app' },
-      '/api': { target: 'http://localhost:9527' }
+        '/api': {target: 'http://192.168.32.249:9527'}
     }
   },
 

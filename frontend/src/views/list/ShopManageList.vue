@@ -173,8 +173,6 @@ export default {
       return e.file.originFileObj
     },
     handleConfirm () {
-      console.log(this.form.getFieldsValue())
-
       this.form.validateFields(async (errors, values) => {
         if (!errors) {
           this.confirmLoading = true
