@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '垃圾分类系统',
+      default: '智能垃圾分类',
       required: false
     },
     showTitle: {

@@ -1,7 +1,7 @@
 <template>
   <a-card :bordered="false">
     <a-page-header
-      title="在线识别垃圾分类"
+      title="智能识别垃圾分类"
       sub-title="请在下方上传需要检测的图片"
     ><template slot="tags">
        <a-tag color="blue">
@@ -53,7 +53,7 @@
       :multiple="false"
       @change="handleChange"
     >
-      <img style="width: 100%;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
+      <img style="height: 60vh;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
       <div style="margin: 55px;" v-else>
         <a-icon :type="loading ? 'loading' : 'plus'"/>
         <div class="ant-upload-text">

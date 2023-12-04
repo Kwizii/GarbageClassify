@@ -12,7 +12,7 @@
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick"
       >
-        <a-tab-pane key="tab1" tab="垃圾分类系统登录">
+        <a-tab-pane key="tab1" tab="智能垃圾分类系统登录">
           <a-form-item>
             <a-input
               size="large"

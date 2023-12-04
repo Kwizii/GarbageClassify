@@ -4,9 +4,9 @@
       <div class="title-line-wrapper" style="opacity: 1; transform: translate(0px, 0px);">
         <div class="title-line" style="transform: translateX(-64px);"></div>
       </div>
-      <h1 class="" style="opacity: 1; transform: translate(0px, 0px);">在线垃圾分类系统</h1>
+      <h1 class="" style="opacity: 1; transform: translate(0px, 0px);">智能垃圾分类系统</h1>
       <p style="opacity: 1; transform: translate(0px, 0px);">
-        <span>在线垃圾分类系统、知识问答、积分商城</span>
+        <span>智能垃圾分类系统、知识问答、积分商城</span>
       </p>
       <div class="button-wrapper">
         <a href="https://github.com/19920625lsg">

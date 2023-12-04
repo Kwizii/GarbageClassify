@@ -5,11 +5,11 @@
         <div class="header">
           <a href="/">
             <img src="../assets/logo.svg" class="logo" alt="logo">
-            <span class="title">在线垃圾分类系统</span>
+            <span class="title">智能垃圾分类</span>
           </a>
         </div>
         <div class="desc">
-          在线智能垃圾分类、知识问答、积分商城
+          智能垃圾分类、知识问答、积分商城
         </div>
       </div>
 

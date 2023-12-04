@@ -97,7 +97,7 @@
           </div>
         </a-layout-content>
         <a-layout-footer :style="{ textAlign: 'center' }">
-          在线垃圾分类系统 ©2023 Crated by BISTU
+          智能垃圾分类系统 ©2023 Crated by BISTU
         </a-layout-footer>
       </a-layout>
     </a-layout>
