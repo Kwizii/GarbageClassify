@@ -15,14 +15,14 @@
            支持的类别
          </a-popover>
        </a-tag>
-      <a-tag color="red">
-        <a-popover>
-          <template slot="content">
-            <p>请确保照片质量足够好，以提高识别准确性。</p>
-            <p>尽量避免阴影和模糊，以确保系统能够正确分辨垃圾类型。</p>
-          </template>
-          注意事项
-        </a-popover>
+       <a-tag color="red">
+         <a-popover>
+           <template slot="content">
+             <p>请确保照片质量足够好，以提高识别准确性。</p>
+             <p>尽量避免阴影和模糊，以确保系统能够正确分辨垃圾类型。</p>
+           </template>
+           注意事项
+         </a-popover>
        </a-tag>
      </template>
       <template slot="extra">
@@ -53,6 +53,7 @@
       style="margin-bottom: 10px;"
       block>检测</a-button>
     <a-upload-dragger
+      style="overflow: hidden"
       name="avatar"
       accept=".jpg, .jpeg, .png"
       class="avatar-uploader"
@@ -62,7 +63,7 @@
       :multiple="false"
       @change="handleChange"
     >
-      <img style="height: 60vh;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
+      <img style="height: 60vh;width: 100%;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
       <div style="margin: 55px;" v-else>
         <a-icon :type="loading ? 'loading' : 'plus'"/>
         <div class="ant-upload-text">
