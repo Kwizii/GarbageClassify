@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-container">
-    <a-carousel autoplay effect="fade">
+    <a-carousel effect="fade">
       <div v-for="(slide,index) in slides" :key="index">
         <div class="slide" :style="{backgroundImage:`url(${slide.image})`}">
         </div>
@@ -33,7 +33,7 @@ export default {
 
 .slide {
   width: 100%;
-  height: 80vh;
+  height: 82vh;
   background-color: #8cc8ff;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,9 +43,16 @@ export default {
 <style>
 .ant-carousel .slick-dots li {
   background-color: #8cc8ff;
+  height: 14px;
+  width: 30px;
 }
 
 .ant-carousel .slick-dots .slick-active button {
-  background-color: #2f54eb !important;
+  background-color: #40a9ff !important;
+}
+
+.ant-carousel .slick-dots button {
+  width: 100% !important;
+  height: 100% !important;
 }
 </style>

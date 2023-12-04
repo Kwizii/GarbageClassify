@@ -9,7 +9,7 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: {title: '智能垃圾分类系统'},
-    redirect: '/dashboard/info',
+    redirect: '/dashboard/',
     children: [
       // dashboard
       {
