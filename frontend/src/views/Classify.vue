@@ -63,7 +63,7 @@
       :multiple="false"
       @change="handleChange"
     >
-      <img style="height: 60vh;width: 100%;" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
+      <img style="min-height:40vh;max-height: 60vh;max-width: 100%;object-fit: contain" v-if="imageUrl" :src="imageUrl" alt="avatar"/>
       <div style="margin: 55px;" v-else>
         <a-icon :type="loading ? 'loading' : 'plus'"/>
         <div class="ant-upload-text">
