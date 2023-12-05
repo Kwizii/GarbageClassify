@@ -32,16 +32,13 @@ public class UserController {
     @PostMapping("/register")
     @ApiOperation("注册")
     ResultVO<User> register(@RequestBody RegisterDTO registerDTO) {
-        ResultVO<User> resultVO;
         // 注册信息的完善，还有唯一性校验没(用户名、邮箱和手机号)已经在user表中通过unique来设置了
-        User user = userService.register(registerDTO);
-        if (user != null) {
-            // 注册成功
-            resultVO = new ResultVO<>(ResultEnum.REGISTER_SUCCESS.getCode(), ResultEnum.REGISTER_SUCCESS.getMessage(), user);
-        } else {
-            resultVO = new ResultVO<>(ResultEnum.REGISTER_FAILED.getCode(), ResultEnum.REGISTER_FAILED.getMessage(), null);
+        try {
+            User user = userService.register(registerDTO);
+            return new ResultVO<>(ResultEnum.REGISTER_SUCCESS.getCode(), ResultEnum.REGISTER_SUCCESS.getMessage(), user);
+        } catch (Exception e) {
+            return new ResultVO<>(ResultEnum.REGISTER_FAILED.getCode(), ResultEnum.REGISTER_FAILED.getMessage(), null);
         }
-        return resultVO;
     }
 
     @PostMapping("/login")

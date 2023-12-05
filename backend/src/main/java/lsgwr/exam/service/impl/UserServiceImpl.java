@@ -56,38 +56,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegisterDTO registerDTO) {
-        try {
-            User user = new User();
-            user.setUserId(IdUtil.simpleUUID());
-            // 好像还缺少个用户名,用"exam_user_手机号"来注册：需要校验唯一性数据字段已经设置unique了，失败会异常地
+        User user = new User();
+        user.setUserId(IdUtil.simpleUUID());
+        // 好像还缺少个用户名,用"exam_user_手机号"来注册：需要校验唯一性数据字段已经设置unique了，失败会异常地
 //            String defaultUsername = "user";
-            user.setUserUsername(registerDTO.getNickname());
-            // 初始化昵称和用户名相同
-            user.setUserNickname(registerDTO.getNickname());
-            // 这里还需要进行加密处理，后续解密用Base64.decode()
-            user.setUserPassword(Base64.encode(registerDTO.getPassword()));
-            // 默认设置为学生身份，需要老师和学生身份地话需要管理员修改
-            user.setUserRoleId(RoleEnum.STUDENT.getId());
-            // 设置头像图片地址, 先默认一个地址，后面用户可以自己再改
-            String defaultAvatar = "https://s2.loli.net/2023/12/03/AG82PVFyIr5oeTw.png";
-            user.setUserAvatar(defaultAvatar);
-            user.setScore(0);
-            // 设置描述信息，随便设置段默认的
-            user.setUserDescription("welcome to gbg system");
-            // 需要验证这个邮箱是不是已经存在：数据字段已经设置unique了，失败会异常地
-            user.setUserEmail(registerDTO.getEmail());
-            // 需要验证手机号是否已经存在：数据字段已经设置unique了，失败会异常地
-            user.setUserPhone(registerDTO.getMobile());
-            user.setCreateTime(new Date());
-            user.setUpdateTime(new Date());
-            userRepository.save(user);
-            System.out.println(user);
-            return user;
-        } catch (Exception e) {
-            e.printStackTrace(); // 用户已经存在
-            // 出异常，返回null，表示注册失败
-            return null;
-        }
+        user.setUserUsername(registerDTO.getNickname());
+        // 初始化昵称和用户名相同
+        user.setUserNickname(registerDTO.getNickname());
+        // 这里还需要进行加密处理，后续解密用Base64.decode()
+        user.setUserPassword(Base64.encode(registerDTO.getPassword()));
+        // 默认设置为学生身份，需要老师和学生身份地话需要管理员修改
+        user.setUserRoleId(RoleEnum.STUDENT.getId());
+        // 设置头像图片地址, 先默认一个地址，后面用户可以自己再改
+        String defaultAvatar = "https://s2.loli.net/2023/12/03/AG82PVFyIr5oeTw.png";
+        user.setUserAvatar(defaultAvatar);
+        user.setScore(0);
+        // 设置描述信息，随便设置段默认的
+        user.setUserDescription("welcome to gbg system");
+        // 需要验证这个邮箱是不是已经存在：数据字段已经设置unique了，失败会异常地
+        user.setUserEmail(registerDTO.getEmail());
+        // 需要验证手机号是否已经存在：数据字段已经设置unique了，失败会异常地
+        user.setUserPhone(registerDTO.getMobile());
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
+        userRepository.save(user);
+        System.out.println(user);
+        return user;
     }
 
     @Override
