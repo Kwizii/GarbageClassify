@@ -40,27 +40,27 @@ def pred_transform(size, mean=PREPROCESS_ARGS['mean'], std=PREPROCESS_ARGS['std'
     ])
 
 
-def preprocess(inputs, size=PREPROCESS_ARGS['size'], mean=PREPROCESS_ARGS['mean'], std=PREPROCESS_ARGS['std'],
-               half=False):
-    transform = pred_transform(size, mean, std)
-    tensors = transform(inputs).cuda()
-    if len(tensors.shape) == 3:
-        tensors = tensors.unsqueeze(0)
-    if half:
-        tensors = tensors.half()
-    return tensors
-
-
-def postprocess(inputs, names=None, topk=5, T=1):
-    probs, classIdxes = torch.topk(inputs, k=topk, dim=-1)
-    probs = torch.nn.functional.softmax(probs / T, dim=-1)
-    preds = []
-    for prob, classIdx in zip(probs, classIdxes):
-        preds.append(
-            [{'cls': names[str(c.item())] if names else c.item(), 'conf': str(round(p.item() * 100, 1)) + '%'} for p, c
-             in
-             zip(prob, classIdx)])
-    return preds
+# def preprocess(inputs, size=PREPROCESS_ARGS['size'], mean=PREPROCESS_ARGS['mean'], std=PREPROCESS_ARGS['std'],
+#                half=False):
+#     transform = pred_transform(size, mean, std)
+#     tensors = transform(inputs).cuda()
+#     if len(tensors.shape) == 3:
+#         tensors = tensors.unsqueeze(0)
+#     if half:
+#         tensors = tensors.half()
+#     return tensors
+#
+#
+# def postprocess(inputs, names=None, topk=5, T=1):
+#     probs, classIdxes = torch.topk(inputs, k=topk, dim=-1)
+#     probs = torch.nn.functional.softmax(probs / T, dim=-1)
+#     preds = []
+#     for prob, classIdx in zip(probs, classIdxes):
+#         preds.append(
+#             [{'cls': names[str(c.item())] if names else c.item(), 'conf': str(round(p.item() * 100, 1)) + '%'} for p, c
+#              in
+#              zip(prob, classIdx)])
+#     return preds
 
 
 def rgb_to_hex(rgb):
